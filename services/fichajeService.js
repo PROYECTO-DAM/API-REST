@@ -30,10 +30,23 @@ const borrarFichaje = async (_id) => {
     return await db.createQuery("DELETE FROM FICHAJE WHERE ID = ?", [_id]);
 }
 
+const getFichajesMensualesPorUsuario = async () => {
+    return await db.createQuery(
+        `
+        SELECT year, month, Trabajador, SUM(Horas) AS total_horas
+            FROM (SELECT EXTRACT(YEAR FROM Fecha) AS year, EXTRACT(MONTH FROM Fecha) AS month, Trabajador, Fecha, Horas FROM 
+                FICHAJE GROUP BY year, month, Trabajador, Fecha, Horas
+            ) AS subquery
+        GROUP BY year, month, Trabajador, Horas; 
+        `
+    )
+}
+
 module.exports = {
     getFichajeById,
     getFichajesByUser,
     fichar,
     updateFichaje,
-    borrarFichaje
+    borrarFichaje,
+    getFichajesMensualesPorUsuario
 }

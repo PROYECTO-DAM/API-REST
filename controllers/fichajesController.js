@@ -103,10 +103,20 @@ const borrarFichaje = async (req, res) => {
    });
 }
 
+const getFichajesMensualesPorUsuario = async (req, res) => {
+    const fichajesPorUsuarioYMes = fichajeService.getFichajesMensualesPorUsuario();
+    if(fichajesPorUsuarioYMes != null) {
+        res.status(201).send({ status:201, data: fichajesPorUsuarioYMes});
+    } else {
+        res.status(404).send({ status: 404, data: "No hay fichajes de ningun usuario"});
+    }
+}
+
 module.exports = {
     getFichajesByUser,
     getFichajeById,
     fichar,
     updateFichaje,
-    borrarFichaje
+    borrarFichaje,
+    getFichajesMensualesPorUsuario
 }

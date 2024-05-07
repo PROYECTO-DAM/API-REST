@@ -10,5 +10,6 @@ router
   .post("/fichar", auth, fichajesController.fichar)
   .put("/updateFichaje", auth, fichajesController.updateFichaje)
   .delete("/deleteFichaje", auth, fichajesController.borrarFichaje)
+  .get("/obtenerFichajesCalcularNomina", fichajesController.getFichajesMensualesPorUsuario)
 
 module.exports = router;
