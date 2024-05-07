@@ -39,7 +39,31 @@ const getNominaDelMes = async (req, res) => {
    });
 }
 
+const insertarNominas = async (req, res) => {
+    const { body } = req;
+
+    const nominas = body.nominas;
+
+    const errores = [];
+
+    nominas.forEach(nomina => {
+        const insertedNomina = nominaService.insertNomina(nomina);
+        if(insertedNomina == null) {
+            errores.push(`Fallo al insertar la nómina del ${nomina.mes} - ${nomina.año}`)
+        } else {
+
+        }
+    }); 
+
+    if(errores.length > 0) {
+        res.status(500).send({ status: 500, data: errores})
+    } else {
+        res.status(200).send({ status:200, data: ["TODO OK"] })
+    }
+}
+
 module.exports = {
     getNominasByUser,
     getNominaDelMes,
+    insertarNominas
 }

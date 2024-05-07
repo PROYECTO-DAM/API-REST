@@ -7,5 +7,6 @@ const router = express.Router();
 router
   .get("/getNominasByUserId", auth, nominaController.getNominasByUser)
   .get("/getNominaById", auth, nominaController.getNominaDelMes)
+  .post("/insertarNominas", nominaController.insertarNominas)
 
 module.exports = router;

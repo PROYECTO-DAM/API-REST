@@ -8,7 +8,18 @@ const getNominaDelMes = async (mes) => {
     return await db.createQuery("SELECT * FROM NOMINA WHERE Mes = ? AND AÑO = ?", [mes,ano])
 }
 
+const insertNomina = async (nomina) => {
+    return await db.createQuery("INSERT INTO NOMINA ('Empleado','Mes','Pago','Horas','Año') VALUES (?,?,?,?,?)", [
+        nomina.trabajador,
+        nomina.mes,
+        nomina.pago,
+        nomina.horas,
+        nomina.año
+    ])
+}
+
 module.exports = {
     getNominasByUser,
-    getNominaDelMes
+    getNominaDelMes,
+    insertNomina
 }
