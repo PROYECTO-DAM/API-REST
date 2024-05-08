@@ -25,7 +25,7 @@ const getUserById = async (req, res) => {
   await autentication.decodeToken(token).then(async (user) => {
     if(user.rol) {
       let searchedUser;
-      if(id != null && id != undefined && id != -1) {searchedUser = await userService.getUserById(id)}
+      if(id != null && id != undefined && id != -1 && id != '') {searchedUser = await userService.getUserById(id)}
       else { searchedUser = await userService.getUserById(user.sub)}
       if (searchedUser != null) {
         res.status(201).send({ status: 201, data: searchedUser[0] });
