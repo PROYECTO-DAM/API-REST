@@ -142,7 +142,6 @@ const deleteUser = async (req,res) => {
       res.status(401).send({status : 401, message : "No tienes permisos para borrar el usuario"});
     }
   }).catch(error =>{
-    console.log(error)
     res.status(401).send({status :401, error : error});
   })
 }
