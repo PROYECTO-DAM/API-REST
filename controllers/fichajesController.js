@@ -7,7 +7,7 @@ const getFichajesByUser = async (req, res) => {
     await autentication.decodeToken(token).then(async (user) => {
         if(user.rol) {
             let fichajes;
-            if(userId != null && userId != undefined && userId != '') { fichajes = await fichajeService.getFichajesByUser(userId)}
+            if(userId != null && userId != undefined && userId != '', userId != 0) { fichajes = await fichajeService.getFichajesByUser(userId)}
             else {fichajes = await fichajeService.getFichajesByUser(user.sub)}
             if(fichajes != null) {
                 res.status(201).send({ status: 201, data: fichajes });
