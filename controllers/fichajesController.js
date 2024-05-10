@@ -41,10 +41,10 @@ const fichar = async (req, res) => {
     const { body } = req; 
  
     const fichar = {
-        userId: body.userId,
-        fecha: body.fecha,
-        horas: body.horas,
-        proyecto: body.proyecto
+        userId: body.Trabajador,
+        fecha: body.Fecha,
+        horas: body.Horas,
+        proyecto: body.Proyecto
     }
 
     const token = req.headers.authorization.split(" ")[1].replace('"','');
