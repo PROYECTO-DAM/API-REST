@@ -9,14 +9,14 @@ const getNominaDelMes = async (mes) => {
 }
 
 const insertNomina = async (nomina) => {
-    return await db.createQuery("INSERT INTO NOMINA ('Empleado','Mes','Pago','Horas','Año') VALUES (?,?,?,?,?)", [
-        nomina.trabajador,
-        nomina.mes,
-        nomina.pago,
-        nomina.horas,
-        nomina.año
-    ])
-}
+    return await db.createQuery("INSERT INTO NOMINA (Empleado, Mes, Pago, Horas, Año) VALUES (?, ?, ?, ?, ?)", [
+        nomina.Empleado,
+        nomina.Mes,
+        nomina.Pago,
+        nomina.Horas,
+        nomina.Año
+    ]);
+};
 
 module.exports = {
     getNominasByUser,

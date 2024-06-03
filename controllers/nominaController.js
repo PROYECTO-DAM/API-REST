@@ -41,22 +41,18 @@ const getNominaDelMes = async (req, res) => {
 
 const insertarNominas = async (req, res) => {
     const { body } = req;
+    const nomina = body.nomina;
 
-    const nominas = body.nominas;
+    console.log(nomina);
 
-    const errores = [];
+    let error = false
+    const insertedNomina = nominaService.insertNomina(nomina);
+    if(insertedNomina == null) {
+        error = true;
+    }
 
-    nominas.forEach(nomina => {
-        const insertedNomina = nominaService.insertNomina(nomina);
-        if(insertedNomina == null) {
-            errores.push(`Fallo al insertar la nómina del ${nomina.mes} - ${nomina.año}`)
-        } else {
-
-        }
-    }); 
-
-    if(errores.length > 0) {
-        res.status(500).send({ status: 500, data: errores})
+    if(error) {
+        res.status(500).send({ status: 500, data: [`Fallo al insertar la nómina del ${nomina.mes} - ${nomina.año}`]})
     } else {
         res.status(200).send({ status:200, data: ["TODO OK"] })
     }
