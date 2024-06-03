@@ -104,13 +104,25 @@ const borrarFichaje = async (req, res) => {
 }
 
 const getFichajesMensualesPorUsuario = async (req, res) => {
-    const fichajesPorUsuarioYMes = fichajeService.getFichajesMensualesPorUsuario();
-    if(fichajesPorUsuarioYMes != null) {
-        res.status(201).send({ status:201, data: fichajesPorUsuarioYMes});
-    } else {
-        res.status(404).send({ status: 404, data: "No hay fichajes de ningun usuario"});
+    const token = req.headers.authorization.split(" ")[1].replace('"','');
+    try {
+        const user = await autentication.decodeToken(token);
+        if (user.rol) {
+            const fichajesPorUsuarioYMes = await fichajeService.getFichajesMensualesPorUsuario();
+            if (fichajesPorUsuarioYMes.length > 0) {
+                console.log(fichajesPorUsuarioYMes);
+                res.status(200).send({ status: 200, data: fichajesPorUsuarioYMes });
+            } else {
+                res.status(404).send({ status: 404, data: "No hay fichajes de ningún usuario" });
+            }
+        } else {
+            res.status(403).send({ status: 403, data: "Acceso denegado" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: 500, data: "Error interno del servidor" });
     }
-}
+};
 
 module.exports = {
     getFichajesByUser,
